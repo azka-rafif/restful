@@ -8,7 +8,7 @@ These instructions will guide you on how to run the Run Tracker API on your loca
 
 ### Prerequisites
 
-You need to have Go installed on your machine. This project is developed using Go 1.17.4. While it may work with other versions, it's advisable to use the version that the project was developed with.
+You need to have Go installed on your machine. This project is developed using Go 1.20. While it may work with other versions, it's advisable to use the version that the project was developed with.
 
 ### Running the Project
 
