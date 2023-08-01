@@ -1,0 +1,208 @@
+definitions:
+  response.Base:
+    properties:
+      data: {}
+      error:
+        type: string
+      message:
+        type: string
+    type: object
+  run.RunPayload:
+    properties:
+      runCity:
+        type: string
+      runKilometers:
+        type: number
+      runTime:
+        type: string
+    type: object
+  run.RunResponseFormat:
+    properties:
+      createdAt:
+        type: string
+      createdBy:
+        type: string
+      deletedAt:
+        type: string
+      deletedBy:
+        type: string
+      id:
+        type: string
+      runCity:
+        type: string
+      runKilometers:
+        type: number
+      runTime:
+        type: string
+      updatedAt:
+        type: string
+      updatedBy:
+        type: string
+      userId:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/runs:
+    get:
+      description: This endpoint gets all Runs.
+      parameters:
+      - description: page number
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: page limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: sort direction
+        in: query
+        name: sort
+        type: string
+      - description: field to sort
+        in: query
+        name: field
+        type: string
+      - description: city to filter
+        in: query
+        name: city
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Base'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/run.RunResponseFormat'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Base'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Base'
+      summary: Gets all Runs.
+      tags:
+      - Run
+    post:
+      description: This endpoint creates a new Run.
+      parameters:
+      - description: The Run to be created.
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/run.RunPayload'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Base'
+            - properties:
+                data:
+                  $ref: '#/definitions/run.RunResponseFormat'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Base'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Base'
+      summary: Create a new Run.
+      tags:
+      - Run
+  /v1/runs/{id}:
+    delete:
+      description: This endpoint deletes a Run.
+      parameters:
+      - description: run id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Base'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Base'
+      summary: deletes a Run.
+      tags:
+      - Run
+    put:
+      description: This endpoint updates a Run.
+      parameters:
+      - description: run id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/run.RunPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Base'
+            - properties:
+                data:
+                  $ref: '#/definitions/run.RunResponseFormat'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Base'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Base'
+      summary: updates a Run.
+      tags:
+      - Run
+swagger: "2.0"
